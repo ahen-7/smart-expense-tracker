@@ -6,6 +6,12 @@ expenses = []
 
 
 @app.route("/", methods=["GET", "POST"])
+@app.route("/delete/<int:index>")
+def delete(index):
+    if 0 <= index < len(expenses):
+        expenses.pop(index)
+
+    return redirect("/")
 def home():
 
     if request.method == "POST":
