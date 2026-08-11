@@ -22,9 +22,13 @@ def init_db():
         )
     """)
 
+    try:
+        conn.execute("ALTER TABLE expenses ADD COLUMN date TEXT")
+    except sqlite3.OperationalError:
+        pass
+
     conn.commit()
     conn.close()
-
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -35,13 +39,13 @@ def home():
         expense = request.form["expense"]
         amount = float(request.form["amount"])
         category = request.form["category"]
-
-        conn.execute(
-            "INSERT INTO expenses (expense, amount, category) VALUES (?, ?, ?)",
-            (expense, amount, category)
-        )
-
-        conn.commit()
+        today = date.today().strftime("%Y-%m-%d")
+        
+    conn.execute(
+    "INSERT INTO expenses (expense, amount, category, date) VALUES (?, ?, ?, ?)",
+    (expense, amount, category, today)
+)
+    conn.commit()
 
     expenses = conn.execute(
         "SELECT * FROM expenses ORDER BY id DESC"
