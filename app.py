@@ -22,14 +22,16 @@ def init_db():
         )
     """)
 
-    try:
+    # Add date column if it doesn't already exist
+    columns = conn.execute("PRAGMA table_info(expenses)").fetchall()
+
+    column_names = [column["name"] for column in columns]
+
+    if "date" not in column_names:
         conn.execute("ALTER TABLE expenses ADD COLUMN date TEXT")
-    except sqlite3.OperationalError:
-        pass
 
     conn.commit()
     conn.close()
-
 @app.route("/", methods=["GET", "POST"])
 def home():
 
