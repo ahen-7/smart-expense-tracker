@@ -23,9 +23,7 @@ def init_db():
         )
     """)
 
-    # Add date column if it doesn't already exist
     columns = conn.execute("PRAGMA table_info(expenses)").fetchall()
-
     column_names = [column["name"] for column in columns]
 
     if "date" not in column_names:
@@ -33,22 +31,32 @@ def init_db():
 
     conn.commit()
     conn.close()
+
+
 @app.route("/", methods=["GET", "POST"])
 def home():
 
     conn = get_db()
 
     if request.method == "POST":
+
+        # Get the values from the form FIRST
         expense = request.form["expense"]
         amount = float(request.form["amount"])
         category = request.form["category"]
         today = date.today().strftime("%Y-%m-%d")
-        
-    conn.execute(
-    "INSERT INTO expenses (expense, amount, category, date) VALUES (?, ?, ?, ?)",
-    (expense, amount, category, today)
-)
-    conn.commit()
+
+        # Then save them
+        conn.execute(
+            """
+            INSERT INTO expenses
+            (expense, amount, category, date)
+            VALUES (?, ?, ?, ?)
+            """,
+            (expense, amount, category, today)
+        )
+
+        conn.commit()
 
     expenses = conn.execute(
         "SELECT * FROM expenses ORDER BY id DESC"
