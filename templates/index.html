@@ -103,6 +103,11 @@
 
         </form>
     </div>
+    <div class="card">
+    <h2>Total Expenses</h2>
+
+    <h1>₹{{ expenses | sum(attribute='amount') }}</h1>
+</div>
 <div class="card">
     <h2>Expense History</h2>
 
