@@ -10,7 +10,7 @@ def home():
 
     if request.method == "POST":
         expense = request.form["expense"]
-        amount = request.form["amount"]
+        amount = float(request.form["amount"])
         category = request.form["category"]
 
         expenses.append({
