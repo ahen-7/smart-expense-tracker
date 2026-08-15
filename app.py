@@ -3,7 +3,7 @@ from datetime import date
 import sqlite3
 
 app = Flask(__name__)
-
+MONTHLY_BUDGET = 10000
 
 def get_db():
     conn = sqlite3.connect("expenses.db")
