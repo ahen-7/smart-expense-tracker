@@ -112,6 +112,19 @@
     <h2>Monthly Budget</h2>
 
     <p><strong>Budget:</strong> ₹{{ monthly_budget }}</p>
+        <form method="POST">
+    <label>Set Monthly Budget</label>
+    <input
+        type="number"
+        name="budget"
+        placeholder="Enter budget"
+        min="0"
+        step="0.01"
+        required
+    >
+
+    <button type="submit">Set Budget</button>
+</form>
     <p><strong>Spent:</strong> ₹{{ total_expenses }}</p>
     <p><strong>Remaining:</strong> ₹{{ remaining_budget }}</p>
 </div>
