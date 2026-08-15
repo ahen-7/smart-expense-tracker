@@ -61,7 +61,8 @@ def home():
     expenses = conn.execute(
         "SELECT * FROM expenses ORDER BY id DESC"
     ).fetchall()
-
+    total_expenses = sum(expense["amount"] for expense in expenses)
+    remaining_budget = MONTHLY_BUDGET - total_expenses
     conn.close()
 
     return render_template("index.html", expenses=expenses)
