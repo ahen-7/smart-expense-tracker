@@ -85,6 +85,11 @@ def home():
     expenses = conn.execute(
         "SELECT * FROM expenses ORDER BY id DESC"
     ).fetchall()
+    budget_row = conn.execute(
+    "SELECT monthly_budget FROM settings WHERE id = 1"
+).fetchone()
+
+monthly_budget = budget_row["monthly_budget"]
     total_expenses = sum(expense["amount"] for expense in expenses)
     remaining_budget = MONTHLY_BUDGET - total_expenses
     conn.close()
