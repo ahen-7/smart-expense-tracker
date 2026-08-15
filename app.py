@@ -65,7 +65,13 @@ def home():
     remaining_budget = MONTHLY_BUDGET - total_expenses
     conn.close()
 
-    return render_template("index.html", expenses=expenses)
+    return render_template(
+    "index.html",
+    expenses=expenses,
+    monthly_budget=MONTHLY_BUDGET,
+    total_expenses=total_expenses,
+    remaining_budget=remaining_budget
+)
 
 
 @app.route("/delete/<int:index>")
