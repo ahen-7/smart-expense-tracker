@@ -97,7 +97,7 @@ monthly_budget = budget_row["monthly_budget"]
     return render_template(
     "index.html",
     expenses=expenses,
-    monthly_budget=MONTHLY_BUDGET,
+    monthly_budget=monthly_budget,
     total_expenses=total_expenses,
     remaining_budget=remaining_budget
 )
