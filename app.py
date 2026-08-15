@@ -52,9 +52,19 @@ def home():
 
     conn = get_db()
 
-    if request.method == "POST":
+   if request.method == "POST":
 
-        # Get the values from the form FIRST
+       if "budget" in request.form:
+        new_budget = float(request.form["budget"])
+
+        conn.execute(
+            "UPDATE settings SET monthly_budget = ? WHERE id = 1",
+            (new_budget,)
+        )
+
+        conn.commit()
+
+    else:
         expense = request.form["expense"]
         amount = float(request.form["amount"])
         category = request.form["category"]
