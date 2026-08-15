@@ -28,7 +28,21 @@ def init_db():
 
     if "date" not in column_names:
         conn.execute("ALTER TABLE expenses ADD COLUMN date TEXT")
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS settings (
+        id INTEGER PRIMARY KEY,
+        monthly_budget REAL NOT NULL
+        )
+      """)
 
+    existing_budget = conn.execute(
+    "SELECT * FROM settings WHERE id = 1"
+     ).fetchone()
+
+    if existing_budget is None:
+    conn.execute(
+        "INSERT INTO settings (id, monthly_budget) VALUES (1, 10000)"
+    )
     conn.commit()
     conn.close()
 
