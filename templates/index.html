@@ -108,6 +108,13 @@
 
     <h1>₹{{ expenses | sum(attribute='amount') }}</h1>
 </div>
+    <div class="card">
+    <h2>Monthly Budget</h2>
+
+    <p><strong>Budget:</strong> ₹{{ monthly_budget }}</p>
+    <p><strong>Spent:</strong> ₹{{ total_expenses }}</p>
+    <p><strong>Remaining:</strong> ₹{{ remaining_budget }}</p>
+</div>
 <div class="card">
     <h2>Expense History</h2>
 
